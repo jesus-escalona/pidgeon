@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Send Money 💵</h5>
+            <%= form_for @transaction, :html => {:class => "form-signin"} do |f| %>
+              <div class="form-label-group">
+                <h6>To:</h6>
+                <%= f.collection_select :receiver, @all_users, :id, :username, {}, {:class=>"form-control"} %>
+              </div>
+              <div class="form-label-group">
+                <h6>Amount in $</h6>
+                <%= f.number_field :amount, class:"form-control", required:"", :step => 0.01  %>
+              </div>
+              <div class="form-label-group">
+                <h6>Write a message</h6>
+                <%= f.text_field :message, class:"form-control", required:""  %>
+              </div>
+                <%= f.submit "Pay now!", class:"btn btn-lg btn-primary btn-block text-uppercase"%>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

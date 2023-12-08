@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Add a new card</h5>
+            <%= form_for @card, :html => {:class => "form-signin"} do |f| %>
+              <div class="form-label-group">
+                <%= f.text_field :card_number, class:"form-control", required:""  %>
+                <%= f.label :card_number %>
+              </div>
+              <div class="form-label-group">
+                <%= f.text_field :card_type, class:"form-control", required:""  %>
+                <%= f.label :card_type %>
+              </div>
+              <div class="form-label-group">
+                <%= f.text_field :exp_date, :value => @card.exp_date.strftime("%m/%Y"),class:"form-control", required:"", min: Date.today  %>
+                <%= f.label "expiration date" %>
+              </div>
+              <div class="form-label-group">
+                <%= f.text_field :security_code, class:"form-control", required:""  %>
+                <%= f.label :security_code %>
+              </div>
+              <div class="form-label-group">
+                <%= f.text_field :zip_code, class:"form-control", required:""  %>
+                <%= f.label :zip_code %>
+              </div>
+              <%= f.submit "Add card", class:"btn btn-lg btn-primary btn-block text-uppercase"%>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

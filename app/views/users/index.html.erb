@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="col center-block p-3">
+		<h1>Search friends!</h1>
+	</div>
+	<%= form_tag users_path, :method => 'get' , class:"form-inline justify-content-center mb-5" do %>
+		<%= text_field_tag :search, params[:search], class:"form-control mr-sm-2" %>
+		<%= submit_tag "Search", :name => nil, class:"btn btn-outline-primary my-2 my-sm-0" %>
+	<% end %>
+	<div class="row">
+		<div class="col-md-12 mx-auto">
+			<% @users.each do |u| %>
+				<div class="card p-1">
+				  <div class="card-body row p-2">
+			  		<div class="col-sm-3 p-2 text-center">
+						<%= image_tag u.image, class:"img-fluid rounded-circle mx-auto d-block", width:"90px" %>
+					</div>
+					<div class="col-sm-7 p-1">
+						<div class="col-sm-12 p-1 mr-1">
+					    	<h6 class="card-title"><%= "@#{u.username}" %></h6>
+					    	<p class="card-text m-0"><%= u.name %></p>
+					    	<p class="hour"><%= "Joined Pidgeon#{time_ago_in_words(u.created_at)} ago" %></p>
+					    </div>
+					</div>
+				    <div class="col-sm-2 p-1 text-center">
+				    	<a href="#"><i class="icon ion-heart"></i></a>
+				    	<% if @logged_in_user.follows.include?(u) %>
+				    		<%= link_to("<button class='btn btn-secondary'>Following</button>".html_safe, relation_path(u), class:"card-link", method:"delete") %>
+				    	<% else %>
+				    		<%= link_to("<button class='btn btn-primary'>Follow</button>".html_safe, relations_path(u), class:"card-link", method:"post") %>
+				    	<% end %>
+					</div>
+				  </div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

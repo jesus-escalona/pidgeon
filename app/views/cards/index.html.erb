@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="col center-block p-3">
+		<h1>Your cards</h1>
+	</div>
+	<div class="col-md-12 text-center">
+		<%= link_to "<button class='btn btn-primary'>+ Add Card</button>".html_safe, new_card_path %>
+	</div>
+	<div class="row p-3">
+		<% @cards.each do |card| %>
+		<div class="card col-md-4 p-2 mx-auto">
+		  <div class="card-body">
+		    <h5 class="card-title"><%= card.user.name %></h5>
+		    <h6 class="card-subtitle mb-2 text-muted"><%= card.card_type %></h6>
+		    <p class="card-text"><%= "ending in: #{card.card_number[-4..-1]}" %></p>
+		    <p class="card-text"><%= "Expires: #{card.exp_date.strftime("%m/%Y")}" %></p>
+		    <%= link_to("Edit Card", edit_card_path(card) , class:"card-link") %>
+		    <%= link_to("Delete Card", card_path(card), class:"card-link", method:"delete") %>
+		  </div>
+		</div>
+		<% end %>
+	</div>
+</div>

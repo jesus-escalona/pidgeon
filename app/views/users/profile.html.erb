@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="col center-block p-3">
+    <h1>Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <%= form_for @logged_in_user, :html => {:class => "form-signin"} do |f| %>
+            <div class="form-label-group">
+              <%= image_tag(@logged_in_user.image || "default.jpg", class:"img-fluid rounded-circle mx-auto d-block", width: "140px") %>
+            </div>
+            <div class="form-label-group">
+              <%= f.file_field :image, class:"form-control" %>
+            </div>
+            <div class="form-label-group">
+              <%= f.text_field :name, class:"form-control", required:""  %>
+              <%= f.label :name %>
+            </div>
+            <div class="form-label-group">
+              <%= f.text_field :email, class:"form-control"  %>
+              <%= f.label :email %>
+            </div>
+            <%= f.submit "Save", class:"btn btn-lg btn-primary btn-block text-uppercase"%>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

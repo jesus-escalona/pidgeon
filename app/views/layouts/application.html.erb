@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pidgeon</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button fixed-top">
+  <a href="/" class="navbar-brand"><%= image_tag "logo.jpg", width: "80" %>Pidgeon</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+          <span class="navbar-text actions">
+            <% if @logged_in_user %>
+            <div class="dropdown">
+              <%= link_to(image_tag(@logged_in_user.image || "default.jpg", width:"35", class:"rounded-circle mx-auto"), users_profile_path) %>
+              <button class="btn btn-primary dropdown-toggle mx-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= "@#{@logged_in_user.username}" %>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to("Balance: $#{'%.2f' % @logged_in_user.balance.to_f}", users_dashboard_path, :class=>"login dropdown-item") %>
+                <%= link_to("Cards", cards_path, :class=>"login dropdown-item") %>
+                <%= link_to("Friends #{@friendships}", relations_path, :class=>"login dropdown-item") %>
+                <%= link_to("Transactions", transactions_path, :class=>"login dropdown-item") %>
+              </div>
+              <%= link_to("Log Out", "/sessions/#{@logged_in_user.id}", :class=>"login", method: "delete") %>
+            </div>
+            <% else %>
+            <%= link_to("Log In", new_session_path, { :class=>"login" }) %>
+              <%= link_to("Sign Up", new_user_path, { :class=>"btn btn-primary action-button", :role=>"button" }) %>
+            <% end %>
+          </span>
+    </ul>
+  </div>
+</nav>
+<%= yield %>
+<% if @errors %>
+  <ul class="errors">
+    <% @errors.each do |error| %>
+      <%= error %>
+    <% end %>
+  </ul>
+<% end %>
+<div class="footer-basic">
+  <footer>
+    <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="/">Home</a></li>
+      <li class="list-inline-item"><a href="#">Services</a></li>
+      <li class="list-inline-item"><a href="#">About</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright">Pidgeon © 2024</p>
+  </footer>
+</div>
+</body>
+</html>

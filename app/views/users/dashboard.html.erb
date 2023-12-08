@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="col center-block p-3">
+		<h1>Welcome <%= @logged_in_user.name.split(' ')[0] %></h1>
+	</div>
+	<div class="col-md-12 text-center mb-3">
+		<%= link_to "<button class='btn btn-primary'>Send Money 💸</button>".html_safe, new_transaction_path %>
+	</div>
+	<div class="row">
+		<div class="col-md-12 mx-auto">
+			<h2 class="p-3 text-center">Happening now!</h2>
+			<% @transactions.each do |t| %>
+				<div class="card p-1">
+				  <div class="card-body row p-2">
+			  		<div class="col-sm-3 p-2 text-center">
+						<%= image_tag t.sender.image, class:"img-fluid rounded-circle mx-auto d-block", width:"90px" %>
+					</div>
+					<div class="col-sm-7 p-1">
+						<div class="col-sm-12 p-1 mr-1">
+					    	<h6 class="card-title"><%= "#{t.sender.name} paid #{t.receiver.name}" %></h6>
+					    	<p class="card-text m-0"><%= t.message %></p>
+					    	<p class="hour"><%= "#{time_ago_in_words(t.created_at)} ago" %></p>
+					    </div>
+					</div>
+				    <div class="col-sm-2 p-1 text-center">
+				    	<a href="#"><i class="icon ion-heart"></i></a>
+					</div>
+				  </div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
