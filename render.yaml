@@ -1,11 +1,13 @@
 databases:
   - name: pidgeon
+    plan: free
     databaseName: pidgeon
     user: pidgeon
 
 services:
   - type: web
     name: pidgeon
+    plan: free
     runtime: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
