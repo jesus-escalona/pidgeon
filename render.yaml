@@ -1,0 +1,18 @@
+databases:
+  - name: pidgeon
+    databaseName: pidgeon
+    user: pidgeon
+
+services:
+  - type: web
+    name: pidgeon
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pidgeon
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
